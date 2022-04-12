@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Verjbei|Alfa: Computational inteligence</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../styles/main_style.css'>
+    
+    <script type="text/javascript" src="../scripts/currencies_data.js"></script>
+    <script src='../scripts/units_and_measures.js'></script>
+    <script src='../scripts/equation_solve.js'></script>
+    <script src='../scripts/finances.js'></script>
+    <script src='../scripts/plots.js'></script>
+   
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="home" onclick="window.location.href = 'index.html'"><img src="../img/home.png"></div>
+            <div id="sign_in">Sign in</div>
+        </nav>
+        
+    </header>
+    <div id="input_wrap">
+        <div id="input_form">
+            <input id="equation_input" placeholder="Введите сюда то, что хотите вычислить или узнать">
+            <div id="input_button-wrap">
+                <button onclick="solveEquation()" id="input_button">
+                    <svg id="input_svg" viewBox="0 0 24 24">
+                        <path style="fill:#ff6c00" d="M19 2H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 
+                        3h14a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm-2 13H7v-2h10zm0-4H7V9h10z" 
+                        fill="#fa6800">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="insert_answer">
+    </div>
+    <div id="hide_on_search">
+        <div id="description">
+            <span id="description_text"> Рассчитайте ответы экспертного уровня, используя прорыв Verjbei|Alfa
+                алгоритмы, база знаний и технология искусственного интеллекта </span>  
+        </div>
+        <h2 >Категории</h2>
+        <div id="categories">
+            <div class="category" onclick="window.location.href = '../algebra_info_page/algebra.html'">Алгебра</div>
+            <div class="category" onclick="window.location.href = '../units_info_page/units.html'">Перевод единиц измерения</div>
+            <div class="category" onclick="window.location.href = '../plots_info_page/plots.html'">Графики</div>
+            <div class="category">Элементарная Математика</div>
+        </div>
+    </div>
+
+</body>
+<script src='index.js'></script>
+</html>
