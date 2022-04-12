@@ -31,15 +31,17 @@ function getCurrenciesTextInfo(curr_string){
     }
 }
 function getMortgageAndLoans(equation_string){
+    let interest_info=equation_string.match(/(\d+).*?(\d+).*?(\d+)%/);
+    let answer={};
+    answer.interest_info=interest_info;
     if(/mortgage/i.test(equation_string)){
-        let interest_info=equation_string.match(/(\d+).*?(\d+).*?(\d+)%/);
         let loan_amount=interest_info[1],
         month_interst_rate=interest_info[3],
         number_of_payment=interest_info[2];
-        let answer={};
+        
         if(/fixed/i.test(equation_string)){
-            month_interst_rate=Math.pow(1+month_interst_rate/100,1/12);
-            answer.month_payment=(loan_amount*Math.pow(month_interst_rate,12*number_of_payment)*(month_interst_rate-1)/(Math.pow(month_interst_rate,12*number_of_payment)-1)).toFixed(2);
+            month_interst_rate=month_interst_rate/1200;
+            answer.month_payment=(loan_amount*month_interst_rate/(1-Math.pow(1+month_interst_rate,-12*number_of_payment))).toFixed(2);
             answer.total_payment=(answer.month_payment*number_of_payment*12).toFixed(2);
             answer.overpayment=(answer.total_payment-loan_amount).toFixed(2);
             answer.interest_info=interest_info;
@@ -47,17 +49,30 @@ function getMortgageAndLoans(equation_string){
             
 
         }else{
-            answer.overpayment=month_interst_rate/100*loan_amount*(number_of_payment+1/12)
-            answer.total_payment=+answer.overpayment+Number(loan_amount);
+            let S=0;
+            b=loan_amount/(12*number_of_payment);
+            let Sn=loan_amount;
+            let p=loan_amount*month_interst_rate/1200;
+            Sn-=b;
+            let fisrt_pay=(b+p).toFixed(2);last_pay=(b+b*month_interst_rate/1200).toFixed(2);
+            for(let i=0;i<12*number_of_payment;i++){
+                p=Sn*month_interst_rate/1200;
+                S+=b+p;
+                Sn-=b;
+            }
+            answer.overpayment=(S-loan_amount).toFixed(3);
+            answer.total_payment=(S).toFixed(3);
+            answer.month_payment=`${fisrt_pay}-${last_pay}`;
+            
             return [2,answer]
         }
     }else if(/interest/i.test(equation_string)){
-        let interest_info=equation_string.match(/(\d+).*?(\d+).*?(\d+)%/);
         let present_value=interest_info[1];
         let interest_periods=interest_info[2];
         let interest_rate=interest_info[3];
-        let future_rate=present_value*Math.pow(1+(interest_rate/1200),12*interest_periods);
-        return[3,future_rate,interest_info];
+        answer.future_rate=(present_value*Math.pow(1+(interest_rate/1200),12*interest_periods)).toFixed(2);
+        answer.income=(answer.future_rate-present_value).toFixed(2);
+        return[3,answer];
     }
     return undefined;
 }

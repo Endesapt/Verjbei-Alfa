@@ -45,7 +45,53 @@ function solveEquation(){
 
 }
 function createMortgageAndLoans(answer){
-    console.log(answer);
+    let main_div=document.createElement('div');
+    main_div.id='answer_div';
+
+    let input_div=document.createElement('div')
+    input_div.innerHTML='Интерпретация ввода';
+
+    let input_answer=document.createElement('div');
+    //1-fixed mortgage 2-mortgage 3-interest
+    let info=answer[1];
+    if(answer[0]==2 || answer[0]==1){
+        input_answer.innerHTML+=`<table>
+        <tr><td>Сумма займа</td><td>${info.interest_info[1]}</td></tr>
+        <tr><td>Время выплачивания долга(в годах)</td><td>${info.interest_info[2]}</td></tr>
+        <tr><td>Годовой процент</td><td>${info.interest_info[3]}%</td></tr>
+        </table>`;
+    }else{
+        input_answer.innerHTML+=`<table>
+        <tr><td>Сумма вкалада</td><td>${info.interest_info[1]}</td></tr>
+        <tr><td>Время нахождения вклада(в годах)</td><td>${info.interest_info[2]}</td></tr>
+        <tr><td>Процент прироста</td><td>${info.interest_info[3]}%</td></tr>
+        </table>`; 
+    }
+    let answer_div=document.createElement('div');
+    answer_div.innerHTML=(answer[0]==1 || answer[0]==2) ?'Информация о кредите':'Информация о вкладе';
+    
+    let answer_solution=document.createElement('div');
+    let answer_table=document.createElement('table');
+    if(answer[0]==1 || answer[0]==2){
+        answer_table.innerHTML+=`
+        <tr><td>Всего переплат</td><td>${info.total_payment}</td></tr>
+        <tr><td>Переплата</td><td>${info.overpayment}</td></tr>
+        <tr><td>Месчный платеж</td><td>${info.month_payment}</td></tr>
+        `
+    }else{
+        answer_table.innerHTML+=`
+        <tr><td>Итоговое кол-во денег</td><td>${info.future_rate}</td></tr>
+        <tr><td>Итоговая прибыль</td><td>${info.income}</td></tr>
+        `
+    }
+    answer_solution.appendChild(answer_table);
+    //
+
+    main_div.appendChild(input_div);
+    main_div.appendChild(input_answer);
+    main_div.appendChild(answer_div);
+    main_div.appendChild(answer_solution);
+    document.getElementById('insert_answer').appendChild(main_div);
 }
 function createCurrenciesAnswer(answer){
     let main_div=document.createElement('div');
