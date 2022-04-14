@@ -53,11 +53,10 @@ function makePlotFromFunction(function_text){
         let xoffset=200;
         let x=-10;
         function_text_arr.forEach(function(function_text){
-            let time = performance.now();
             let y=eval(function_text[1].replace(/x/g,x));
             let y1;
             ctx.moveTo(y*20+yoffset,x*20);
-            for(let x=-10;x<10;x+=0.1){
+            for(let x=-10;x<10;x+=0.05){
                 y1=y;
                 y=eval(function_text[1].replace(/x/g,x));
                 if(isNaN(y1) ||Math.abs(y1-y)>40 ){
@@ -66,8 +65,7 @@ function makePlotFromFunction(function_text){
                 }
                 ctx.lineTo(y*20+yoffset,x*20+xoffset);
             }
-            time = performance.now() - time;
-            console.log('Время выполнения = ', time);
+            
         });
         
 

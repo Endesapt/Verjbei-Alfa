@@ -41,57 +41,47 @@ let dictionary_of_measures= [
     ['knot',1.94384]
   ]
 ]
-let dictionary_of_const=[
-  ['e','элементарный заряд[Кл]',1.602176e-19],
-  ['k','постоянная Больцмана[Дж/К−1]',1.380e-23],
-  ['c','скорость света в вакууме[м/с]',2.99792e8 ]
-]
-
-function getUnitFromString(string,start_index = 0){
+function foundMeasure(equation_text,fi=0){
   let regexp;
-  for(let i=start_index;i<dictionary_of_measures.length;i++){
+  for(let i=fi;i<dictionary_of_measures.length;i++){
     for(let j=0;j<dictionary_of_measures[i].length;j++){
-      regexp=new RegExp(`(^| )${dictionary_of_measures[i][j][0]}(s?)($| )`,'i'); 
-      if(regexp.test(string)){
-        return [i,j];
+      regexp=new RegExp(`(\s|^)${dictionary_of_measures[i][j][0]}(\s|$)`)
+      if(regexp.test(equation_text)){
+        alert(i+' '+j+' '+dictionary_of_measures[i][j][0])
+        return {arr_index:i,element_index:j}
       }
     }
-
   }
-}   
-function getConstInfo(string){
-  for(let i=0;i<dictionary_of_const.length;i++){
-    let regexp=new RegExp(`(^| )${dictionary_of_const[i][0]}($| )`,'i'); 
-    if(regexp.test(string)){
-      return i;
-    }
-  }
-  return undefined;
 }
 function getUnitsAndMeasures(equation_text){
-  //пытаемся найти константу
-    let const_index=getConstInfo(equation_text);
-    if(const_index>=0)return [2,dictionary_of_const[const_index]]; 
-  //
+  let answer={};
+  let founded_measures=[...equation_text.matchAll(/(\d*)\s*([A-я]{3,})/g)];
+  
+  
 
-  //нет, ну ладно
-  if(equation_text.indexOf('to')!=-1){
-    let temp_string=equation_text.substring(0,equation_text.indexOf('to'));
-    let unit_indexes=getUnitFromString(temp_string);
-    if(!unit_indexes)return  undefined;
-    let first_measure=dictionary_of_measures[unit_indexes[0]][unit_indexes[1]];
-    temp_string=equation_text.substring(equation_text.indexOf('to')+3);
-    unit_indexes=getUnitFromString(temp_string,unit_indexes[0]);
-    let second_measure=dictionary_of_measures[unit_indexes[0]][unit_indexes[1]];
-    if(!unit_indexes)return  undefined;
-    return [0,first_measure,second_measure];
-     
+  if(founded_measures.length>2 || founded_measures.length==0)return undefined;
+  if(founded_measures.length==1){
+
+    
+    
+    let temp_measure=foundMeasure(founded_measures[0][2]);
+    if(!temp_measure)return undefined;
+    answer.input_text=`${founded_measures[0][1]} ${founded_measures[0][2]}`;
+    answer.arr=dictionary_of_measures[temp_measure.arr_index];
+    answer.element_index=temp_measure.element_index;
+    answer.element_count=founded_measures[0][1]||1;
+    return[1,answer];
   }else{
-    let unit_indexes=getUnitFromString(equation_text);
-    if(!unit_indexes)return  undefined;
-    return [1,dictionary_of_measures[unit_indexes[0]],unit_indexes[1]];
+    let first_measure=foundMeasure(founded_measures[0][2]);
+    if(!first_measure)return undefined;
+    let second_measure=foundMeasure(founded_measures[1][2],founded_measures.arr_index);
+    if(!second_measure)return undefined;
+    answer.input_text=`${founded_measures[0][1]} ${founded_measures[0][2]} to ${founded_measures[1][1]} ${founded_measures[1][2]}`;
+    answer.arr=dictionary_of_measures[first_measure.arr_index];
+    answer.element_index=[first_measure.element_index,second_measure.element_index];
+    answer.element_count=[founded_measures[0][1]||1,founded_measures[1][1]||1];
+    return[2,answer];
 
   }
-
   
 }
