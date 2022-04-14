@@ -1,0 +1,11 @@
+.explanation h3{
+    color:rgb(231, 82, 82);
+    font-size: large;
+}
+#description_header{
+    height:220px;
+    padding:20px;
+    min-width:870px;
+    background-color:rgb(231, 82, 82);
+    color:white; 
+}

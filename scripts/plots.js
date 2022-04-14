@@ -2,13 +2,13 @@
 function recreateFunctionText(function_text)
 {
     function_text=function_text.replace(/,/g,';')
-    function_text=function_text.replace(/([^*\/\-\+\^]+?)\^([^*\/\-\+\^]+?)/gm,'Math.pow($1,$2)');
+    function_text=function_text.replace(/.*y=/gm,'');
+    function_text=function_text.replace(/([(?:\d\.|x)]+?)\^([?:\d\.|x)]+?)/gm,'Math.pow($1,$2)');
     function_text=function_text.replace(/sqrt\((.+?)\)/gm,'Math.sqrt($1)');
     function_text=function_text.replace(/sin\((.+?)\)/gm,'Math.sin($1)');
     function_text=function_text.replace(/cos\((.+?)\)/gm,'Math.cos($1)');
     function_text=function_text.replace(/tan\((.+?)\)/gm,'Math.tan($1)');
     function_text=function_text.replace(/cot\((.+?)\)/gm,'(1/Math.tan($1))');
-    function_text=function_text.replace(/.*y=/gm,'');
     function_text=function_text.replace(/(\d)x/gm,'$1*x');
     function_text=function_text.replace(/(\d|x)\(/g,'$1*(')
     function_text=function_text.replace(/\)(\d|x)/g,')*$1')
@@ -18,11 +18,10 @@ function makePlotFromFunction(function_text){
     //проверка является ли это функцией
     if(!/(^| )y=/.test(function_text))return undefined;
     try {
-
+        
         function_text=recreateFunctionText( function_text);
         //
         let function_text_arr=[...function_text.matchAll(/(.+?)(?:;|$)/gm)];
-        alert(function_text_arr);
         let canvas=document.createElement('canvas');
         let ctx=canvas.getContext('2d');
         canvas.width=400;
@@ -49,14 +48,16 @@ function makePlotFromFunction(function_text){
         }
         ctx.rotate(-Math.PI/2 );
         //начало отрисовки графика
+       
         yoffset=-200;
         let xoffset=200;
         let x=-10;
         function_text_arr.forEach(function(function_text){
+            let time = performance.now();
             let y=eval(function_text[1].replace(/x/g,x));
             let y1;
             ctx.moveTo(y*20+yoffset,x*20);
-            for(let x=-10;x<10;x+=0.01){
+            for(let x=-10;x<10;x+=0.1){
                 y1=y;
                 y=eval(function_text[1].replace(/x/g,x));
                 if(isNaN(y1) ||Math.abs(y1-y)>40 ){
@@ -65,11 +66,14 @@ function makePlotFromFunction(function_text){
                 }
                 ctx.lineTo(y*20+yoffset,x*20+xoffset);
             }
+            time = performance.now() - time;
+            console.log('Время выполнения = ', time);
         });
         
 
         ctx.stroke();
-
+        
+        
         return ctx.getImageData(0,0,canvas.width,canvas.height);
     } 
     catch (err) {
