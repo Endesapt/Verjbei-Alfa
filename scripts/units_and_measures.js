@@ -47,7 +47,6 @@ function foundMeasure(equation_text,fi=0){
     for(let j=0;j<dictionary_of_measures[i].length;j++){
       regexp=new RegExp(`(\s|^)${dictionary_of_measures[i][j][0]}(\s|$)`)
       if(regexp.test(equation_text)){
-        alert(i+' '+j+' '+dictionary_of_measures[i][j][0])
         return {arr_index:i,element_index:j}
       }
     }
@@ -55,7 +54,7 @@ function foundMeasure(equation_text,fi=0){
 }
 function getUnitsAndMeasures(equation_text){
   let answer={};
-  let founded_measures=[...equation_text.matchAll(/(\d*)\s*([A-я]{3,})/g)];
+  let founded_measures=[...equation_text.matchAll(/(\d*\.?\d*)\s*([A-я]{3,})/g)];
   
   
 

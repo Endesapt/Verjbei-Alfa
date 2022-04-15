@@ -230,14 +230,16 @@ function createUnitsAndMeasuresDiv(answers){
         }
     }else if(answers[0]==2) {
         if(answer.element_count[1]>1){
+            console.log(answer.element_count[0]*answer.arr[answer.element_index[0]][1]+' '+answer.element_count[1]*answer.arr[answer.element_index[1]][1])
             table_str+=`<tr>
-            <td>${answer.element_count[0]} ${answer.arr[answer.element_index]}</td>
-            <td>${answer.element_count[0]*answer.arr[answer.element_index[1]][1]/answer.arr[answer.element_index[0]][1]} ${answer.arr[answer.element_index[1]][2]}</td>
+            <td>${answer.element_count[0]} ${answer.arr[answer.element_index[0]][0]}/${answer.element_count[1]} ${answer.arr[answer.element_index[1]][0]}</td>
+            <td>${(answer.element_count[0]*answer.arr[answer.element_index[1]][1])/(answer.element_count[1]*answer.arr[answer.element_index[0]][1])} </td>
             </tr>`
         }else{
+            
             table_str+=`<tr>
-            <td>${answer.element_count[0]} ${answer.arr[answer.element_index]}</td>
-            <td>${answer.element_count[0]*answer.arr[answer.element_index[1]][1]/answer.arr[answer.element_index[0]][1]} ${answer.arr[answer.element_index[1]][2]}</td>
+            <td>${answer.element_count[0]} ${answer.arr[answer.element_index[0]][0]}</td>
+            <td>${answer.element_count[0]*answer.arr[answer.element_index[1]][1]/answer.arr[answer.element_index[0]][1]} ${answer.arr[answer.element_index[1]][0]}</td>
             </tr>`
         }
             

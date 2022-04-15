@@ -31,8 +31,9 @@ function getCurrenciesTextInfo(curr_string){
     }
 }
 function getMortgageAndLoans(equation_string){
-    let interest_info=equation_string.match(/(\d+).*?(\d+).*?(\d+)%/);
+    let interest_info=equation_string.match(/(\d+\.?\d*).*?(\d+\.?\d*).*?(\d+\.?\d*)%/);
     let answer={};
+    console.log(interest_info)
     answer.interest_info=interest_info;
     if(/mortgage/i.test(equation_string)){
         let loan_amount=interest_info[1],
@@ -77,7 +78,7 @@ function getMortgageAndLoans(equation_string){
     return undefined;
 }
 function getCurrencies(equation_string){
- let founded_currs=[...equation_string.matchAll(/(\d*)\s?([A-zА-я]{3,})/gm)];
+ let founded_currs=[...equation_string.matchAll(/(\d*\.?\d*)\s?([A-zА-я]{3,})/gm)];
  if(founded_currs.length>2 || founded_currs.length==0)return undefined;
  if(founded_currs.length==1){
    let curr_info=getCurrenciesInfo(founded_currs[0][2]);
