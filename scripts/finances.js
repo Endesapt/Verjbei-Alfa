@@ -31,8 +31,10 @@ function getCurrenciesTextInfo(curr_string){
     }
 }
 function getMortgageAndLoans(equation_string){
-    let interest_info=equation_string.match(/(\d+).*?(\d+).*?(\d+)%/);
+    equation_string=equation_string.replace(/,/gm,'.');
+    let interest_info=equation_string.match(/(\d+\.?\d*).*?(\d+\.?\d*).*?(\d+\.?\d*)%/);
     let answer={};
+    console.log(interest_info)
     answer.interest_info=interest_info;
     if(/mortgage/i.test(equation_string)){
         let loan_amount=interest_info[1],
@@ -77,20 +79,21 @@ function getMortgageAndLoans(equation_string){
     return undefined;
 }
 function getCurrencies(equation_string){
- let founded_currs=[...equation_string.matchAll(/(\d*)\s?([A-zА-я]{3,})/gm)];
- if(founded_currs.length>2 || founded_currs.length==0)return undefined;
- if(founded_currs.length==1){
-   let curr_info=getCurrenciesInfo(founded_currs[0][2]);
-   if(!curr_info)return undefined;
-   curr_info.push(founded_currs[0][1]||1);
-   return [1,curr_info,currency_data];
+    equation_string=equation_string.replace(/,/gm,'.');
+    let founded_currs=[...equation_string.matchAll(/(\d*\.?\d*)\s?([A-zА-я]{3,})/gm)];
+    if(founded_currs.length>2 || founded_currs.length==0)return undefined;
+    if(founded_currs.length==1){
+    let curr_info=getCurrenciesInfo(founded_currs[0][2]);
+    if(!curr_info)return undefined;
+    curr_info.push(founded_currs[0][1]||1);
+    return [1,curr_info,currency_data];
 
- }else{
-    let firstcurr_info=getCurrenciesInfo(founded_currs[0][2]);
-    let secondcurr_info=getCurrenciesInfo(founded_currs[1][2]);
-    if(!firstcurr_info||!secondcurr_info)return undefined;
-    firstcurr_info.push(founded_currs[0][1]||1);
-    secondcurr_info.push(founded_currs[1][1]||1);
-    return [2,firstcurr_info,secondcurr_info];
- }
+    }else{
+        let firstcurr_info=getCurrenciesInfo(founded_currs[0][2]);
+        let secondcurr_info=getCurrenciesInfo(founded_currs[1][2]);
+        if(!firstcurr_info||!secondcurr_info)return undefined;
+        firstcurr_info.push(founded_currs[0][1]||1);
+        secondcurr_info.push(founded_currs[1][1]||1);
+        return [2,firstcurr_info,secondcurr_info];
+    }
 }

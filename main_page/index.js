@@ -45,6 +45,7 @@ function solveEquation(){
 
 }
 function createMortgageAndLoans(answer){
+
     let main_div=document.createElement('div');
     main_div.id='answer_div';
 
@@ -198,7 +199,8 @@ function createMathAnswerDiv(answer){
     document.getElementById('insert_answer').appendChild(main_div);
 
 }
-function createUnitsAndMeasuresDiv(answer){
+function createUnitsAndMeasuresDiv(answers){
+    let answer=answers[1];
     let main_div=document.createElement('div');
     main_div.id='answer_div';
 
@@ -206,7 +208,7 @@ function createUnitsAndMeasuresDiv(answer){
     input_div.innerHTML='Интерпретация ввода';
 
     let input_answer=document.createElement('div');
-    input_answer.innerHTML=document.getElementById('equation_input').value;
+    input_answer.innerHTML=answer.input_text;
 
     let answer_div=document.createElement('div');
     answer_div.innerHTML='Перевод в другие единицы измерения';
@@ -215,27 +217,33 @@ function createUnitsAndMeasuresDiv(answer){
     let answer_solution=document.createElement('div');
     let answer_table=document.createElement('table');
     let table_str=''
-    if(answer[0]==1){
-        let arr=answer[1];
-        let index=answer[2];
+    if(answers[0]==1){
+        
         table_str+=`<tr> 
-        <td rowspan="${arr.length*2}">1 ${arr[index][0]}</td>
-        <td>${arr[0][1]/arr[index][1]} ${arr[0][0]} </td>
+        <td rowspan="${answer.arr.length*2}">${answer.element_count} ${answer.arr[answer.element_index][0]}</td>
+        <td>${answer.element_count*answer.arr[0][1]/answer.arr[answer.element_index][1]} ${answer.arr[0][0]} </td>
         </tr>`
-        for(let i=1;i<arr.length;i++){
+        for(let i=1;i<answer.arr.length;i++){
             table_str+=`<tr>
-            <td>${arr[i][1]/arr[index][1]} ${arr[i][0]}</td>
+            <td>${answer.element_count*answer.arr[i][1]/answer.arr[answer.element_index][1]} ${answer.arr[i][0]}</td>
             <tr>`
         }
-    }else if(answer[0]==0) {
-        table_str+=`<tr>
-        <td>1 ${answer[1][0]}</td>
-        <td>${answer[2][1]/answer[1][1]} ${answer[2][0]}</td>
-        </tr>`
-    }else{
-        table_str+=`<tr>
-        <td>${answer[1][1]} : ${answer[1][0]} = ${answer[1][2]}</td>
-        </tr>`
+    }else if(answers[0]==2) {
+        if(answer.element_count[1]>1){
+            console.log(answer.element_count[0]*answer.arr[answer.element_index[0]][1]+' '+answer.element_count[1]*answer.arr[answer.element_index[1]][1])
+            table_str+=`<tr>
+            <td>${answer.element_count[0]} ${answer.arr[answer.element_index[0]][0]}/${answer.element_count[1]} ${answer.arr[answer.element_index[1]][0]}</td>
+            <td>${(answer.element_count[0]*answer.arr[answer.element_index[1]][1])/(answer.element_count[1]*answer.arr[answer.element_index[0]][1])} </td>
+            </tr>`
+        }else{
+            
+            table_str+=`<tr>
+            <td>${answer.element_count[0]} ${answer.arr[answer.element_index[0]][0]}</td>
+            <td>${answer.element_count[0]*answer.arr[answer.element_index[1]][1]/answer.arr[answer.element_index[0]][1]} ${answer.arr[answer.element_index[1]][0]}</td>
+            </tr>`
+        }
+            
+        
     }
     answer_table.innerHTML+=table_str;
     answer_solution.appendChild(answer_table);
