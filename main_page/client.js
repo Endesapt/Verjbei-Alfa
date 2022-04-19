@@ -16,28 +16,28 @@ function solveEquation(){
     if(equation_text.replace(/ /gm,'')=='')createErrorDiv();
     answer=getMortgageAndLoans(equation_text);
     if(answer){
-        createMortgageAndLoans(answer);
-        return;
+        return createMortgageAndLoans(answer);
+        
     }
     answer=getCurrencies(equation_text);
     if(answer){
-        createCurrenciesAnswer(answer);
-        return;
+        return createCurrenciesAnswer(answer);
+        
     }
     answer=makePlotFromFunction(equation_text);
     if(answer){
-        createPlotAnswer(answer);
-        return;
+        return createPlotAnswer(answer);
+        
     }
     answer=solveMathEquation(equation_text);
     if(answer){
-      createMathAnswerDiv(answer); 
-      return; 
+        return createMathAnswerDiv(answer); 
+      
     }
     answer=getUnitsAndMeasures(equation_text);
     if(answer){
-       createUnitsAndMeasuresDiv(answer);
-       return; 
+        return  createUnitsAndMeasuresDiv(answer);
+       
     }
     
    
@@ -92,7 +92,7 @@ function createMortgageAndLoans(answer){
     main_div.appendChild(input_answer);
     main_div.appendChild(answer_div);
     main_div.appendChild(answer_solution);
-    document.getElementById('insert_answer').appendChild(main_div);
+    return main_div;
 }
 function createCurrenciesAnswer(answer){
     let main_div=document.createElement('div');
@@ -138,7 +138,7 @@ function createCurrenciesAnswer(answer){
     main_div.appendChild(input_answer);
     main_div.appendChild(answer_div);
     main_div.appendChild(answer_solution);
-    document.getElementById('insert_answer').appendChild(main_div);
+    return main_div;
 
 }
 function createPlotAnswer(answer){
@@ -173,7 +173,7 @@ function createPlotAnswer(answer){
     
 
     
-    document.getElementById('insert_answer').appendChild(main_div);
+    return main_div;
 
 }
 function createMathAnswerDiv(answer){
@@ -196,7 +196,7 @@ function createMathAnswerDiv(answer){
     main_div.appendChild(input_answer);
     main_div.appendChild(answer_div);
     main_div.appendChild(answer_solution);
-    document.getElementById('insert_answer').appendChild(main_div);
+    return main_div;
 
 }
 function createUnitsAndMeasuresDiv(answers){
@@ -253,7 +253,7 @@ function createUnitsAndMeasuresDiv(answers){
     main_div.appendChild(input_answer);
     main_div.appendChild(answer_div);
     main_div.appendChild(answer_solution);
-    document.getElementById('insert_answer').appendChild(main_div);
+    return main_div;
 
 
 
@@ -275,5 +275,5 @@ function createErrorDiv(){
     main_div.appendChild(input_answer);
     main_div.appendChild(answer_div);
     main_div.appendChild(answer_solution);
-    document.getElementById('insert_answer').appendChild(main_div);
+    return main_div;
 }
