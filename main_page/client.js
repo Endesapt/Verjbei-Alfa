@@ -1,50 +1,32 @@
 'use strict'
+localStorage.clear();
+function sendRequest(){
+    localStorage.setItem('toServer',document.getElementById('equation_input').value);
+}
 document.onkeyup=function(e){
     if(e.code=='Enter'){
-        solveEquation();
+       sendRequest();
     }
 }
-function solveEquation(){
-    let answer;
-    
-    //очищаем прошлые ответы
-    if(document.getElementById('answer_div')){
-        document.getElementById('insert_answer').removeChild(document.getElementById('answer_div'));
+window.addEventListener('storage',function(event){
+    if(event.key=='toClient'){
+        if(document.getElementById('answer_div')){
+            document.getElementById('insert_answer').removeChild(document.getElementById('answer_div'));
+        }
+        let answer=JSON.parse(localStorage.getItem('toClient'));
+        switch(answer.id){
+            case 1:createMortgageAndLoansAnswerDiv(answer.answer);break;
+            case 2:createCurrenciesAnswerDiv(answer.answer);break;
+            case 3:createPlotAnswerDiv(answer.answer);break;
+            case 4:createMathAnswerDiv(answer.answer);break;
+            case 5:createUnitsAndMeasuresAnswerDiv(answer.answer);break;
+            default:createErrorDiv();
+        }
     }
-    //получаем строку с заданием
-    let equation_text=document.getElementById('equation_input').value;
-    if(equation_text.replace(/ /gm,'')=='')createErrorDiv();
-    answer=getMortgageAndLoans(equation_text);
-    if(answer){
-        createMortgageAndLoans(answer);
-        return;
-    }
-    answer=getCurrencies(equation_text);
-    if(answer){
-        createCurrenciesAnswer(answer);
-        return;
-    }
-    answer=makePlotFromFunction(equation_text);
-    if(answer){
-        createPlotAnswer(answer);
-        return;
-    }
-    answer=solveMathEquation(equation_text);
-    if(answer){
-      createMathAnswerDiv(answer); 
-      return; 
-    }
-    answer=getUnitsAndMeasures(equation_text);
-    if(answer){
-       createUnitsAndMeasuresDiv(answer);
-       return; 
-    }
-    
-   
-    createErrorDiv();
+});
 
-}
-function createMortgageAndLoans(answer){
+
+function createMortgageAndLoansAnswerDiv(answer){
 
     let main_div=document.createElement('div');
     main_div.id='answer_div';
@@ -94,7 +76,7 @@ function createMortgageAndLoans(answer){
     main_div.appendChild(answer_solution);
     document.getElementById('insert_answer').appendChild(main_div);
 }
-function createCurrenciesAnswer(answer){
+function createCurrenciesAnswerDiv(answer){
     let main_div=document.createElement('div');
     main_div.id='answer_div';
 
@@ -118,11 +100,11 @@ function createCurrenciesAnswer(answer){
         let founded_curr=answer[1];
         table_str+=`<tr> 
         <td rowspan="${arr.length*2}">${founded_curr[2]} ${founded_curr[0]}${founded_curr[2]==1 ? '':'s'}</td>
-        <td>${(arr[0].Cur_OfficialRate/founded_curr[1]*founded_curr[2]).toFixed(5)} ${arr[0].Cur_Abbreviation} </td>
+        <td>${(founded_curr[1]/arr[0].Cur_OfficialRate*founded_curr[2]).toFixed(5)} ${arr[0].Cur_Abbreviation} </td>
         </tr>`
         for(let i=1;i<arr.length;i++){
             table_str+=`<tr>
-            <td>${(arr[i].Cur_OfficialRate/founded_curr[1]*founded_curr[2]).toFixed(5)} ${arr[i].Cur_Abbreviation}</td>
+            <td>${(founded_curr[1]/arr[i].Cur_OfficialRate*founded_curr[2]).toFixed(5)} ${arr[i].Cur_Abbreviation}</td>
             <tr>`
         }
     }else{
@@ -141,7 +123,7 @@ function createCurrenciesAnswer(answer){
     document.getElementById('insert_answer').appendChild(main_div);
 
 }
-function createPlotAnswer(answer){
+function createPlotAnswerDiv(answer){
     let main_div=document.createElement('div');
     main_div.id='answer_div';
 
@@ -163,10 +145,15 @@ function createPlotAnswer(answer){
     main_div.appendChild(answer_solution);
 
     let ctx=canvas.getContext('2d');
-    canvas.width=400;
-    canvas.height=400;
-    
-    ctx.putImageData(answer,0,0);
+    canvas.width=300;
+    canvas.height=300;
+    const imageData = ctx.createImageData(300,300);
+    for(let i=0;i<imageData.data.length;i++){
+        imageData.data[i]=answer.data[i];
+    }
+
+
+    ctx.putImageData(imageData,0,0);
     
     
   
@@ -199,7 +186,7 @@ function createMathAnswerDiv(answer){
     document.getElementById('insert_answer').appendChild(main_div);
 
 }
-function createUnitsAndMeasuresDiv(answers){
+function createUnitsAndMeasuresAnswerDiv(answers){
     let answer=answers[1];
     let main_div=document.createElement('div');
     main_div.id='answer_div';

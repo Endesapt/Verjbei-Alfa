@@ -8,11 +8,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../styles/main_style.css'>
     
-    <script type="text/javascript" src="../scripts/currencies_data.js"></script>
-    <script src='../scripts/units_and_measures.js'></script>
-    <script src='../scripts/equation_solve.js'></script>
-    <script src='../scripts/finances.js'></script>
-    <script src='../scripts/plots.js'></script>
+
    
 </head>
 <body>
@@ -27,7 +23,7 @@
         <div id="input_form">
             <input id="equation_input" placeholder="Введите сюда то, что хотите вычислить или узнать">
             <div id="input_button-wrap">
-                <button onclick="solveEquation()" id="input_button">
+                <button onclick="sendRequest()" id="input_button">
                     <svg id="input_svg" viewBox="0 0 24 24">
                         <path style="fill:#ff6c00" d="M19 2H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 
                         3h14a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm-2 13H7v-2h10zm0-4H7V9h10z" 
@@ -55,5 +51,5 @@
     </div>
 
 </body>
-<script src='index.js'></script>
+<script src='client.js'></script>
 </html>

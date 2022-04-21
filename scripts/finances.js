@@ -33,8 +33,8 @@ function getCurrenciesTextInfo(curr_string){
 function getMortgageAndLoans(equation_string){
     equation_string=equation_string.replace(/,/gm,'.');
     let interest_info=equation_string.match(/(\d+\.?\d*).*?(\d+\.?\d*).*?(\d+\.?\d*)%/);
+    if(!interest_info)return undefined;
     let answer={};
-    console.log(interest_info)
     answer.interest_info=interest_info;
     if(/mortgage/i.test(equation_string)){
         let loan_amount=interest_info[1],
