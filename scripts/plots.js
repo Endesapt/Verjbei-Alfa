@@ -3,7 +3,7 @@ function recreateFunctionText(function_text)
 {
     function_text=function_text.replace(/,/g,';')
     function_text=function_text.replace(/.*y=/gm,'');
-    function_text=function_text.replace(/([(?:\d\.|x)]+?)\^([?:\d\.|x)]+?)/gm,'Math.pow($1,$2)');
+    function_text=function_text.replace(/([(?:\d\.|x)]+?)\^([?:\d\.|x)]+)/gm,'Math.pow($1,$2)');
     function_text=function_text.replace(/sqrt\((.+?)\)/gm,'Math.sqrt($1)');
     function_text=function_text.replace(/sin\((.+?)\)/gm,'Math.sin($1)');
     function_text=function_text.replace(/cos\((.+?)\)/gm,'Math.cos($1)');
@@ -31,7 +31,7 @@ function makePlotFromFunction(function_text){
         /*система координат приведена к нижнему углу, только
         есть одна проблема- x и y поменялись местами*/
         //fillRect(y+offset,x,height,width);
-        
+        console.log(function_text_arr);
         let yoffset=-300;
         ctx.beginPath();
         //отрисовка координатной плоскости
@@ -75,6 +75,7 @@ function makePlotFromFunction(function_text){
         return ctx.getImageData(0,0,canvas.width,canvas.height);
     } 
     catch (err) {
+        console.log(err);
          return undefined;
     }
 }

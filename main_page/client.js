@@ -100,11 +100,11 @@ function createCurrenciesAnswerDiv(answer){
         let founded_curr=answer[1];
         table_str+=`<tr> 
         <td rowspan="${arr.length*2}">${founded_curr[2]} ${founded_curr[0]}${founded_curr[2]==1 ? '':'s'}</td>
-        <td>${(arr[0].Cur_OfficialRate/founded_curr[1]*founded_curr[2]).toFixed(5)} ${arr[0].Cur_Abbreviation} </td>
+        <td>${(founded_curr[1]/arr[0].Cur_OfficialRate*founded_curr[2]).toFixed(5)} ${arr[0].Cur_Abbreviation} </td>
         </tr>`
         for(let i=1;i<arr.length;i++){
             table_str+=`<tr>
-            <td>${(arr[i].Cur_OfficialRate/founded_curr[1]*founded_curr[2]).toFixed(5)} ${arr[i].Cur_Abbreviation}</td>
+            <td>${(founded_curr[1]/arr[i].Cur_OfficialRate*founded_curr[2]).toFixed(5)} ${arr[i].Cur_Abbreviation}</td>
             <tr>`
         }
     }else{

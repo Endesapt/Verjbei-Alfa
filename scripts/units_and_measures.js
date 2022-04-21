@@ -33,19 +33,12 @@ let dictionary_of_measures= [
     ['gigabyte',0.000125],
     ['terabyte',1.25e-7]
   ],
-  [
-    ['meters/s',1],
-    ['miles/h',2.23694],
-    ['foot/s',3.28084],
-    ['km/h',3.6],
-    ['knot',1.94384]
-  ]
 ]
 function foundMeasure(equation_text,fi=0){
   let regexp;
   for(let i=fi;i<dictionary_of_measures.length;i++){
     for(let j=0;j<dictionary_of_measures[i].length;j++){
-      regexp=new RegExp(`(\s|^)${dictionary_of_measures[i][j][0]}(\s|$)`)
+      regexp=new RegExp(`( |^)${dictionary_of_measures[i][j][0]}( |$)`)
       if(regexp.test(equation_text)){
         return {arr_index:i,element_index:j}
       }
