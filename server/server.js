@@ -2,10 +2,15 @@ window.addEventListener('storage',getRequest);
 function getRequest(event){
     if(event.key=='toServer'){
         localStorage.setItem('toClient',JSON.stringify(solveEquation(localStorage.getItem('toServer'))));
-        console.log(solveEquation(localStorage.getItem('toServer')))
+        console.log(localStorage.getItem('toClient'))
+    }else if(event.key=='generateProblem'){
+        localStorage.setItem('toGenerator',JSON.stringify(generateProblem(localStorage.getItem('generateProblem'))))
+        console.log(localStorage.getItem('toGenerator'))
     }
 }
-
+function generateProblem(id){
+    return id;
+}
 function solveEquation(equation_text){
     answer={}
     if(equation_text.replace(/ /gm,'')=='')return answer;
