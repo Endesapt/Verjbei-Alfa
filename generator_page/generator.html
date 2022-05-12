@@ -18,20 +18,29 @@
         
     </header>
     <div id="generator_div">
-        <div id="question_number"> Question 0</div>
-        <div id="question_text">5+3=?</div>
-        <div id="answer_input">
-            <input id=>
+        <div id="question_number" class="wrapper"> Question 0</div>
+        <div id="question_text" class="wrapper">5+3=?</div>
+        <div id="input_wrapper" class="wrapper">
+            <input id='answer_input'>
+            <button onclick="alert(1)" id="input_button"><img src="..\img/enter-arrow.png"></button>
         </div>
+        <div id='answers_count' class='wrapper'>
+            <div class="answer_count_block"></div>
+            <div class="answer_count_block"></div>
+            <div class="answer_count_block"></div>
+            <div class="answer_count_block"></div>
+            <div class="answer_count_block"></div>
+        </div>
+       
     </div>
     <div id="categories_wrap">
-        <div class="category" onclick="setGenerator(0)">bebra1</div>
-        <div class="category" onclick="setGenerator(1)">bebra2</div>
-        <div class="category" onclick="setGenerator(2)">bebra3</div>
-        <div class="category" onclick="setGenerator(3)">bebra4</div>
-        <div class="category" onclick="setGenerator(4)">bebra2</div>
-        <div class="category" onclick="setGenerator(5)">bebra3</div>
-        <div class="category" onclick="setGenerator(6)">bebra4</div>
+        <div class="category" onclick="setGenerator(0)">+ и -</div>
+        <div class="category" onclick="setGenerator(1)">/ * + -</div>
+        <div class="category" onclick="setGenerator(2)">НОД и НОК</div>
+        <div class="category" onclick="setGenerator(3)">линейные выражения</div>
+        <div class="category" onclick="setGenerator(4)">линейные уравнения</div>
+        <div class="category" onclick="setGenerator(5)">квадратные уравнения</div>
+        <div class="category" onclick="setGenerator(6)">определение простоты</div>
         <div class="category" onclick="setGenerator(7)">bebra2</div>
         <div class="category" onclick="setGenerator(8)">bebra3</div>
         <div class="category" onclick="setGenerator(9)">bebra4</div> 
