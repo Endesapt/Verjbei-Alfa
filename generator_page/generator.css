@@ -16,6 +16,7 @@
     margin:10px;
     font-size:1.3em;
     background-color: rgba(84, 196, 245,0.2);
+    cursor:pointer;
 }
 .wrapper{
     display:flex;
@@ -23,9 +24,7 @@
     justify-content: center;  
 }
 #generator_div{
-    /*display:none;
-    как докодим разбан
-    */
+    display:none;
     height:400px;
     width:50%;
     margin-left:25%;
@@ -50,6 +49,7 @@
     width:200px;
     height:50px;
     margin-right:10px;
+    font-size:1.5em;
 }
 #input_button{
     height:50px;
@@ -62,7 +62,19 @@
     cursor:pointer;
 }
 #answers_count{
-    margin-top:155px;
-    height:40px;
-    border:1px solid black;
+    margin-top:145px;
+    height:50px;
+}
+.answer_count_block{
+    height:36px;
+    width:36px;
+    margin:0 3px;
+    border-radius:7px;
+    border:0.5px gray solid;
+}
+.green{
+    background-color:green;
+}
+.red{
+    background-color:red;
 }
