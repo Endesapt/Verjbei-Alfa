@@ -3,7 +3,7 @@ function recreateFunctionText(function_text)
 {
     function_text=function_text.replace(/,/g,';')
     function_text=function_text.replace(/.*y=/gm,'');
-    function_text=function_text.replace(/([(?:\d\.|x)]+?)\^([?:\d\.|x)]+)/gm,'Math.pow($1,$2)');
+    function_text=function_text.replace(/([(?:\w\d\.|x)]+?)\^([?:\d\.|x)]+)/gm,'Math.pow($1,$2)');
     function_text=function_text.replace(/sqrt\((.+?)\)/gm,'Math.sqrt($1)');
     function_text=function_text.replace(/sin\((.+?)\)/gm,'Math.sin($1)');
     function_text=function_text.replace(/cos\((.+?)\)/gm,'Math.cos($1)');
@@ -12,6 +12,7 @@ function recreateFunctionText(function_text)
     function_text=function_text.replace(/(\d)x/gm,'$1*x');
     function_text=function_text.replace(/(\d|x)\(/g,'$1*(')
     function_text=function_text.replace(/\)(\d|x)/g,')*$1')
+    console.log(function_text);
     return function_text
 }
 function makePlotFromFunction(function_text){

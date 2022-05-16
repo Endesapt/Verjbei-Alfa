@@ -38,15 +38,16 @@ function gcd(a, b) {
 	return gcd(b, a % b);
 }
 function createGCDandLCMProblemSet(){
-    let x,y,answer,question,arr=[];
+    let x,y,answer,question,basis,arr=[];
     let type;
     console.log(type);
     for(let i=0;i<5;i++){
+        basis=Math.round(Math.random()*19+1)
         type=Math.round(Math.random()*2);
-        x=Math.round(Math.random()*100);
-        y=Math.round(Math.random()*100);
+        x=basis*Math.round(Math.random()*10+1);
+        y=basis*Math.round(Math.random()*10+1);
         question=`${type==1 ? 'НОД':'НОК'}(${x},${y})=?`;
-        answer=type==1 ? gcd(3*x,6*y):(x*y/gcd(x,y));
+        answer=type==1 ? gcd(x,y):(x*y/gcd(x,y));
         arr.push([question,answer]);
 
     }
@@ -63,11 +64,12 @@ function createLinearEquation(){
         k=Math.round(Math.random()*6+1);
         b=Math.round(Math.random()*19+1)-k;
         c=k*Math.round(Math.random()*3+2)+b;
-        question=`${k}x${b<0? '':'+'}${b}=${c}; x=?`;
+        question=`${k}x${b<0? '':'+'}${b}=${c}`;
         console.log(question);
         answer=solveMathEquation(question);
+        question=question+'; x=?';
         answer[0]=answer[0].replace(/\^1/g,'');
-        arr.push(answer);
+        arr.push([question,answer[1]]);
     }
     return arr;
 
@@ -79,7 +81,7 @@ function createQuadraticEquation(){
         a=Math.round(Math.random()*3+1);
         x1=Math.round(Math.random()*10-5);
         x2=Math.round(Math.random()*10-5);
-        question=`${a==1 ? '':a}x^2${-(x1+x2)>0 ? '+':''}${(x1+x2)!=0?(-a*(x1+x2)+'x'):''}${x1*x2>0 ? '+':''}${a*x1*x2}; x=?`
+        question=`${a==1 ? '':a}x^2${-(x1+x2)>0 ? '+':''}${(x1+x2)!=0?(-a*(x1+x2)+'x'):''}${x1*x2>0 ? '+':''}${(a*x1*x2)!=0?(a*x1*x2):''}=0; x=?`
         answer=x1==x2? x1:[x1,x2];
         arr.push([question,answer]);
     }

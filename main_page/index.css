@@ -98,6 +98,7 @@ h2{
     font-size:0.8em;
     border:1px solid grey;
     border-radius: 5px;
+    cursor:pointer;
 }
 .category:hover{
     border-color:orange;
