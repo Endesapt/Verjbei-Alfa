@@ -24,12 +24,16 @@
     justify-content: center;  
 }
 #generator_div{
-    display:none;
-    height:400px;
+    height:0px;
     width:50%;
     margin-left:25%;
     margin-top:20px;
+    overflow:hidden;
+}
+.show_generator{
     box-shadow: 0px 0px 8px 4px rgba(120, 142, 159, 0.31);
+    animation:1s show_table;
+    animation-fill-mode: forwards;
 }
 #question_number{
     height:15%; 
@@ -78,3 +82,4 @@
 .red{
     background-color:red;
 }
+@keyframes show_table{from{height:0px;} to{height:400px;}}

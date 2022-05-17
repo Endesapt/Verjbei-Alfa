@@ -8,7 +8,7 @@ localStorage.clear();
 window.addEventListener('storage',getRequest);
 function setGenerator(id){
     localStorage.clear();
-    document.getElementById('generator_div').style.display='none';
+    document.getElementById('generator_div').classList.remove('show_generator');
     localStorage.setItem('generateProblem',id);   
 }
 function getRequest(event){
@@ -24,7 +24,7 @@ function startQuiz(){
     for(let i=0;i<5;i++){
         document.getElementById('answers_count').children[i].classList.remove('red','green')
     }
-    document.getElementById('generator_div').style.display='block';
+    document.getElementById('generator_div').classList.add('show_generator');
     document.getElementById('input_button').addEventListener('click',checkAnswer);
     setQuestion();
 }
@@ -41,7 +41,7 @@ function checkAnswer(){
     let regexp;
     if(Array.isArray(problem_set[question_count][1])){
         for(let i=0;i<problem_set[question_count][1].length;i++){
-            regexp=new RegExp(`(?:\\D|^)${problem_set[question_count][1][i]}(?:\\D|$)`);
+            regexp=new RegExp(`(?:[\\D-]|^)${problem_set[question_count][1][i]}(?:\\D|$)`);
             if(!regexp.test(answer)){iscorrect=false;break;};
         }
     }else{
