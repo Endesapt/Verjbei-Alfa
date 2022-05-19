@@ -57,13 +57,15 @@ function makePlotFromFunction(function_text){
             let y=eval(function_text[1].replace(/x/g,x));
             let y1;
             ctx.moveTo(y*20+yoffset,x*20);
-            for(let x=-10;x<10;x+=0.05){
+            for(let x=-10;x<10;x+=0.06){
                 y1=y;
                 y=eval(function_text[1].replace(/x/g,x));
+                
                 if(isNaN(y1) ||Math.abs(y1-y)>40 ){
                     
                     ctx.moveTo(y*20+yoffset,x*20+xoffset);
                 }
+                if(y>100 || y<-100)continue;
                 ctx.lineTo(y*20+yoffset,x*20+xoffset);
             }
             
