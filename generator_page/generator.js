@@ -41,11 +41,11 @@ function checkAnswer(){
     let regexp;
     if(Array.isArray(problem_set[question_count][1])){
         for(let i=0;i<problem_set[question_count][1].length;i++){
-            regexp=new RegExp(`(?:[\\D-]|^)${problem_set[question_count][1][i]}(?:\\D|$)`);
+            regexp=new RegExp(`(?:[^\\d*\-\/^*]|^)${problem_set[question_count][1]}(?:[^\\d*\-\/^*]|$)`);
             if(!regexp.test(answer)){iscorrect=false;break;};
         }
     }else{
-        regexp=new RegExp(`(?:\\D|^)${problem_set[question_count][1]}(?:\\D|$)`);
+        regexp=new RegExp(`(?:[^\\d*\-\/^*]|^)${problem_set[question_count][1]}(?:[^\\d*\-\/^*]|$)`);
         if(!regexp.test(answer)){iscorrect=false;};
     }
 
