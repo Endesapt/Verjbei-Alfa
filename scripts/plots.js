@@ -41,11 +41,11 @@ function makePlotFromFunction(function_text){
         ctx.moveTo(150+yoffset,0);
         ctx.lineTo(150+yoffset,300);
         ctx.rotate(Math.PI/2 );
-        for(let i=0;i<20;i++){
-            ctx.fillText(`${i-10}`,152,-i*15+298);
+        for(let i=0;i<16;i++){
+            ctx.fillText(`${i-8}`,152,-i*20+307);
         }
-        for(let i=0;i<20;i++){
-            ctx.fillText(`${i-10}`,i*15+2,148);
+        for(let i=0;i<16;i++){
+            ctx.fillText(`${i-8}`,i*20-8,146);
         }
         ctx.rotate(-Math.PI/2 );
         //начало отрисовки графика

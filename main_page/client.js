@@ -25,7 +25,7 @@ window.addEventListener('storage',function(event){
     }
 });
 
-
+//разные способы добавления блока с ответом
 function createMortgageAndLoansAnswerDiv(answer){
 
     let main_div=document.createElement('div');

@@ -1,3 +1,4 @@
+//изнчльня настройка сайта
 document.addEventListener('keydown',function(event){
     if(event.code=='Enter'){
         if(question_count<5)checkAnswer();
@@ -6,6 +7,7 @@ document.addEventListener('keydown',function(event){
 let question_count=5;
 localStorage.clear();
 window.addEventListener('storage',getRequest);
+//
 function setGenerator(id){
     localStorage.clear();
     document.getElementById('generator_div').classList.remove('show_generator');
